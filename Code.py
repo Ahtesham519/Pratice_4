@@ -51,7 +51,21 @@ print("Total images in train: ", total_images)
 print("Total Labels in the train:", total_labels)
 print(" ")
 
-total_images,total_labels,train_annotations = get_stats()
+total_images,total_labels,train_annotations = get_stats(train_inp)
+print("Total Images in the train: ", total_images)
+print("Total Labels in the train: ", total_labels)
+print("")
+
+total_images, total_labels, test_annotations = get_stats(test_inp)
+print("Total Images in the test: " , total_images)
+print("Total Labels in the test: ", total_labels)
+print("")
+
+total_images, total_labels,valid_annotations = get_Stats(valid_inp)
+print("Total Images in the valid: ", total_images)
+print("Total labels in the valid: ", total_labels)
+
+
 
 
 
