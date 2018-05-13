@@ -65,6 +65,10 @@ total_images, total_labels,valid_annotations = get_Stats(valid_inp)
 print("Total Images in the valid: ", total_images)
 print("Total labels in the valid: ", total_labels)
 
+train_labels = Counter(train_annotations)
+
+xvalues = list(train_labels)
+
 
 
 
