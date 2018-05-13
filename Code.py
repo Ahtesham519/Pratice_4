@@ -67,11 +67,85 @@ print("Total labels in the valid: ", total_labels)
 
 train_labels = Counter(train_annotations)
 
-xvalues = list(train_labels)
+xvalues = list(train_labels.keys())
+yvalues = list(train_labels.values())
+
+tracel = go.Bar(x= xvalues, y=yvalues, opacity = 0.8 , name = "year count", marker = dict(color='rgba(20,20,20,1)'))
+layout = dict(width=800 , title='Distribution of different labels in the train dataset', legend = dict(orientation = "h"));
+
+fig = go.Figure(data=[trace1], layout = layout);
+iplot(fig);
+
+
+valid_labels = Counter(valid_annotations)
+
+xvalues = list(valid_labels.keys())
+yvalues = list(valid_labels.values())
+
+tracel = go.Bar(x = xvalues, y = yvalues , opacity = 0.8 , name= "year count", marker = dict(color = 'rgba(20,20,20,1)'))
+layout = dict(width = 800, title='Distributation of different labels in the valid dataset', legend = dict(orientation = "h"));
+
+
+fig = go.Figure(data = [trace1] , layout = layout);
+iplot(fig);
+
+
+def get_images_for_labels(labellist, data):
+  image_ids = []
+  for each in data['annotations']:
+    if all(x in each [' labelId'] for x in labellist):
+      image_ids.append(each['imageId'])
+      if len(image_ids) == 2:
+        break
+image_urls = []
+for each in data ['images']:
+  if each ['imageId'] in image_ids :
+      image_urls.append(each['url'])
+
+      return image_urls
+    
+    
+    
+temps = train_labels.most_common(10)
+labels_tr = ["Label -" + str(x[0]) for x in temps]
+values = [x[1] for x in temps]
+
+tracel = go.Bar(x = labels_tr, y= values, opacity=0.7, name= "year count" , marker = dict(color = 'rgba(120,120,120,0.8)'))
+layout = dict(height = 400 , title = 'Top 10 Labels in the train dataset', legend = dict(orientation="h"));
+
+fig = go.Figure(data = [trace], layout = layout);
+iplot(fig);
+
+temps = valid_labels.most_common(10)
+labels_vl = ["Label-" +str(x[0]) for x in temps]
+values = [x[1] for x in temps]
+
+tracel = go.Bar(x=labels_vl, y = values, opacity = 0.7, name = "year count" , marker = dict(color='rgba(120,120,120, 0.8)'))
+layout = dict(height=400 , title = 'Top 10 Labels in valid dataset', legend = dict(orientation="h"));
+
+fig = go.Figure(data= [trace1], layout= layout);
+iplot(fig);
 
 
 
+def cartesian_reduct(alist):
+  results = []
+  for x in alist:
+    for y in alist:
+      if x == y:
+        continue
+      srtd = sorted([int(x), int(y)])
+      srtd = "AND ".join([str(x) for in srtd])
+      results.append(srtd)
+  return results
 
+
+co_occurance = []
+for i , each in enumerate(train_inp['annotations']):
+  prod = cartesian_reduct(each ['labelId'])
+  co_occurance.extend(prods)
+  
+  
 
 
 
